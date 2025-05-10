@@ -82,16 +82,18 @@ const InspirationMarquee: React.FC<InspirationMarqueeProps> = ({
       </div>
       
       {/* Add CSS for animation */}
-      <style jsx>{`
-        @keyframes marquee {
-          0% {
-            transform: translateX(0);
+      <style>
+        {`
+          @keyframes marquee {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(-50%);
+            }
           }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-      `}</style>
+        `}
+      </style>
     </div>
   );
 };
