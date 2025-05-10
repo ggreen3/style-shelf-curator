@@ -12,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ColorPicker, Image, X } from "lucide-react";
+import { Palette, Image, X } from "lucide-react";
 
 // Common categories for clothing items
 const CATEGORIES = [
@@ -232,7 +232,7 @@ const EditItemForm: React.FC<EditItemFormProps> = ({
 
       <div className="space-y-2">
         <Label htmlFor="color" className="flex items-center gap-2">
-          <ColorPicker className="h-4 w-4" /> Color
+          <Palette className="h-4 w-4" /> Color
         </Label>
         <div className="flex items-center gap-2">
           <Input 

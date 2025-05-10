@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,6 +7,7 @@ import ClothingGrid from "@/components/clothing/ClothingGrid";
 import { ClothingItemProps } from "@/components/clothing/ClothingItem";
 import { OutfitItem } from "@/lib/local-storage";
 import { v4 as uuidv4 } from 'uuid';
+import { X } from "lucide-react";
 
 interface OutfitFormProps {
   wardrobe: ClothingItemProps[];
