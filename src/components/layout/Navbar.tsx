@@ -1,15 +1,29 @@
 
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { Search, Plus, Grid2X2, ListFilter, User } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import { Search, Plus, Grid2X2, Moon, Sun, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useTheme } from "@/contexts/ThemeContext";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Navbar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const location = useLocation();
+  const { theme, toggleTheme } = useTheme();
+  const isMobile = useIsMobile();
+
+  const getActiveTab = () => {
+    const path = location.pathname;
+    if (path === "/" || path === "/wardrobe") return "wardrobe";
+    if (path === "/inspiration") return "inspiration";
+    if (path === "/outfits") return "outfits";
+    if (path === "/upload") return "upload";
+    return "wardrobe";
+  };
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -30,9 +44,9 @@ const Navbar: React.FC = () => {
           />
         </div>
         
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
           <div className="hidden md:flex">
-            <Tabs defaultValue="wardrobe">
+            <Tabs defaultValue={getActiveTab()} value={getActiveTab()}>
               <TabsList>
                 <TabsTrigger value="wardrobe" asChild>
                   <Link to="/">My Wardrobe</Link>
@@ -47,14 +61,28 @@ const Navbar: React.FC = () => {
             </Tabs>
           </div>
           
-          <Button size="icon" variant="ghost" asChild>
+          <Button 
+            size="icon" 
+            variant="ghost" 
+            onClick={toggleTheme}
+            className="rounded-full"
+          >
+            {theme === 'dark' ? (
+              <Sun className="h-5 w-5" />
+            ) : (
+              <Moon className="h-5 w-5" />
+            )}
+            <span className="sr-only">Toggle theme</span>
+          </Button>
+          
+          <Button size="icon" variant="ghost" asChild className="rounded-full">
             <Link to="/upload">
               <Plus className="h-5 w-5" />
               <span className="sr-only">Add item</span>
             </Link>
           </Button>
           
-          <Button size="icon" variant="ghost" asChild className="md:hidden">
+          <Button size="icon" variant="ghost" asChild className="md:hidden rounded-full">
             <Link to="/search">
               <Search className="h-5 w-5" />
               <span className="sr-only">Search</span>
@@ -63,8 +91,10 @@ const Navbar: React.FC = () => {
           
           <Sheet>
             <SheetTrigger asChild>
-              <Button size="icon" variant="ghost" className="relative">
-                <User className="h-5 w-5" />
+              <Button size="icon" variant="ghost" className="relative rounded-full">
+                <Avatar className="h-8 w-8">
+                  <AvatarFallback>GG</AvatarFallback>
+                </Avatar>
                 <span className="sr-only">Menu</span>
               </Button>
             </SheetTrigger>
@@ -72,11 +102,10 @@ const Navbar: React.FC = () => {
               <div className="flex flex-col gap-6 py-6">
                 <div className="flex items-center gap-4">
                   <Avatar>
-                    <AvatarImage src="" alt="Profile" />
-                    <AvatarFallback>DP</AvatarFallback>
+                    <AvatarFallback>GG</AvatarFallback>
                   </Avatar>
                   <div>
-                    <h2 className="text-lg font-semibold">My Profile</h2>
+                    <h2 className="text-lg font-semibold">GGreen</h2>
                     <p className="text-sm text-muted-foreground">Manage your wardrobe</p>
                   </div>
                 </div>
